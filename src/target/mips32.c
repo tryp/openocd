@@ -86,8 +86,13 @@ static const struct {
 
 /* number of mips dummy fp regs fp0 - fp31 + fsr and fir
  * we also add 18 unknown registers to handle gdb requests */
+#if defined(WORKAROUND_OLD_GDB) 
+#define MIPS32_WA_EXTRA_REGS 18
+#else
+#define MIPS32_WA_EXTRA_REGS 0
+#endif
 
-#define MIPS32NUMFPREGS (34 + 18)
+#define MIPS32NUMFPREGS (34 + MIPS32_WA_EXTRA_REGS)
 
 static uint8_t mips32_gdb_dummy_fp_value[] = {0, 0, 0, 0};
 
